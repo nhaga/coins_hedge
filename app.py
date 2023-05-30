@@ -6,6 +6,11 @@ import pandas as pd
 import plotly.express as px
 import streamlit as st
 from openbb_terminal.sdk import openbb
+from pypfopt import HRPOpt
+from pypfopt.efficient_frontier import (EfficientCDaR, EfficientCVaR,
+                                        EfficientFrontier)
+from pypfopt.expected_returns import mean_historical_return
+from pypfopt.risk_models import CovarianceShrinkage
 
 binance = ccxt.binance()
 
@@ -120,11 +125,6 @@ if method in ('Equal Weights', 'Market Cap'):
 
     p, res = make_portfolio(selected_tickers, weights)
 
-from pypfopt import HRPOpt
-from pypfopt.efficient_frontier import (EfficientCDaR, EfficientCVaR,
-                                        EfficientFrontier)
-from pypfopt.expected_returns import mean_historical_return
-from pypfopt.risk_models import CovarianceShrinkage
 
 if method == "Mean Variance Optimization":
     mu = mean_historical_return(portfolio)
